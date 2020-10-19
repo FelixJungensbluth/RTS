@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+    
+    <script src="less.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.15.1/dist/phaser-arcade-physics.min.js"></script>
+    <link rel="stylesheet/less" type="text/css" href="globalstyles.less" />
+    <link rel="stylesheet/less" type="text/css" href="landingpageStyle.less" />
 </head>
 <body>
 
