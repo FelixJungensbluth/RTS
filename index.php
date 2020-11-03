@@ -10,54 +10,46 @@
 <body>
 
     <script>
-    var config = {
-        type: Phaser.AUTO,
-        width: 1280,
-        height: 720,
-        physics: {
-            default: 'arcade',
-            arcade: {
-                gravity: { y: 200 }
-            }
-        },
-        scene: {
-            preload: preload,
-            create: create
-        }
-    };
-
-    var game = new Phaser.Game(config);
-
-    function preload ()
-    {
-        this.load.setBaseURL('http://labs.phaser.io');
-
-        this.load.image('sky', 'assets/skies/space3.png');
-        this.load.image('logo', 'assets/sprites/phaser3-logo.png');
-        this.load.image('red', 'assets/particles/red.png');
-
+   var config = {
+    type: Phaser.WEBGL,
+    parent: 'phaser-example',
+    scene: {
+        preload: preload,
+        create: create
     }
+};
 
-    function create ()
-    {
-        this.add.image(400, 300, 'sky');
+var game = new Phaser.Game(config);
 
-        var particles = this.add.particles('red');
+function preload ()
+{
+    this.load.setBaseURL('http://labs.phaser.io');
+    this.load.image('eye', 'assets/pics/lance-overdose-loader-eye.png');
+}
 
-        var emitter = particles.createEmitter({
-            speed: 100,
-            scale: { start: 1, end: 0 },
-            blendMode: 'ADD'
-        });
+function create ()
+{
+    var sprite = this.add.sprite(400, 300, 'eye').setInteractive();
 
-        var logo = this.physics.add.image(400, 100, 'logo');
+    sprite.on('pointerdown', function (pointer) {
 
-        logo.setVelocity(100, 200);
-        logo.setBounce(1, 1);
-        logo.setCollideWorldBounds(true);
+        this.setTint(0xff0000);
 
-        emitter.startFollow(logo);
-    }
+    });
+
+    sprite.on('pointerout', function (pointer) {
+
+        this.clearTint();
+
+    });
+
+    sprite.on('pointerup', function (pointer) {
+
+        this.clearTint();
+
+    });
+}
+
     </script>
 
 </body>
