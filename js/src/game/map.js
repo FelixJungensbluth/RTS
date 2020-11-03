@@ -72,7 +72,7 @@ var IsometricMap = {
 
     // Array inwelchen alle Bilder für die Gebäude gespeichert werden
     buildings: [
-      "images/turm.png",
+      "img/images/turm.png",
     ],
 
     // Map-Layout

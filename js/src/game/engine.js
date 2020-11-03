@@ -47,9 +47,12 @@ var config = {
 
   var buildingArray = new Array(); // Array indem die platzierten Gebäude gespeichert werden
 
-
-
-
+  var tilePosition;
+  var tileName;
+  var mousePosition;
+  var belegt;
+  var structureName;
+  
   function preload() {
   this.buildingPositionX = new Array();
   this.buildingPositionY = new Array();
@@ -79,6 +82,13 @@ var config = {
     cam.setZoom(1);
     moveCamera(this,cam);
     zoomCamera(this,cam);
+
+    // Infotext
+    tilePosition = this.add.text(20, 20, 'Tile Position:', { fontSize: '15px', fill: '#fff' });
+    tileName = this.add.text(20, 40, 'Tile: ', { fontSize: '15px', fill: '#fff' });
+    mousePosition = this.add.text(20, 60, 'Mouse Position: ', { fontSize: '15px', fill: '#fff' });
+    belegt = this.add.text(20, 80, 'Tile Status: ', { fontSize: '15px', fill: '#fff' });
+    structureName = this.add.text(20, 100, 'Gebäude: ', { fontSize: '15px', fill: '#fff' });
  
     // Bestimmung des ausgewählten Tiles
     this.input.on('pointermove', function (pointer) {
@@ -86,6 +96,7 @@ var config = {
         selectionRectangle.height += 10;
         selectionRectangle.width += 10
     }
+    mousePosition.setText('Mouse X: ' + pointer.x + ' Mouse Y: ' + pointer.y);
 
     pointer.x = (pointer.x - tileColumnOffset / 2 - originX)+camMoveX;
     pointer.y = (pointer.y - tileRowOffset / 2 - originY) + camMoveY;
@@ -95,8 +106,23 @@ var config = {
     selectedTileX = tileX ;
     selectedTileY = tileY +1 ;
 
-     // console.log("X "+tileX + " Y " +  tileY + 1 )
-
+    // InfoText
+    tilePosition.setText('Tile X: ' + selectedTileX + ' Tile Y: ' + selectedTileY);
+    if(selectedTileX >=0 && selectedTileY >=0){
+      if(IsometricMap.buildingMap[selectedTileX][selectedTileY] == 1){
+        belegt.setText('Tile Status: Belegt');
+      }else{
+        belegt.setText('Tile Status: frei');
+      }
+      var idxMap = IsometricMap.map[selectedTileX][selectedTileY];
+      var idxBuilding = IsometricMap.buildingMap[selectedTileX][selectedTileY];
+      tileName.setText('Tile:' + IsometricMap.tiles[idxMap].replace("img/images/",""));
+      if(idxBuilding != 0){
+        structureName.setText('Gebäude:' + IsometricMap.buildings[idxBuilding-1].replace("img/images/",""));
+      }else {
+        structureName.setText('Gebäude: ');
+      }
+    }
    }, this);
  
    // Platzierung der Gebäude
@@ -112,12 +138,6 @@ var config = {
     if (pointer.rightButtonDown()) {
 
       selectionRectangle = this.add.rectangle(pointer.x + camMoveX, pointer.y +camMoveY, selectionRectWidth, selectionRectHeight, 0xffffff, 0.5);
-      if(IsometricMap.buildingMap[selectedTileX][selectedTileY] == 1){
-        console.log("besetzt");
-      }else{
-        console.log("frei");
-      }
-
     }
       }, this);
  
@@ -127,7 +147,6 @@ var config = {
           drawTile(Xi, Yi);
     }
   }
-
 }
 
   // Ein Tile wird gezeichnet 
@@ -138,10 +157,6 @@ var config = {
   var imageIndex = IsometricMap.map[Xi][Yi];
   scene.add.image(offX, offY, imageIndex);
   }
-
-function getTile(){
-//  return IsometricMap.map[this.selectedTileX][this.selectedTileY];
-}
 
 function update (time, delta)
 {
