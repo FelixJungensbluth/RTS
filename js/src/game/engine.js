@@ -47,13 +47,17 @@ var config = {
 
   var buildingArray = new Array(); // Array indem die platzierten Gebäude gespeichert werden
 
+  // Debug Text
   var tilePosition;
   var tileName;
   var mousePosition;
   var belegt;
   var structureName;
+  var mausInfo;
 
-  var isSelected = false;
+  var isSelected = false; // Boolean ob Gebaude ausgewaehlt ist 
+
+  var lastClicked= new Array(); // Array um Werte des letzten Mausklicks zu speichern 
   
   function preload() {
   this.buildingPositionX = new Array();
@@ -68,8 +72,6 @@ var config = {
     name = i;
     this.load.image(name, IsometricMap.tiles[i]);
   }
-
-
   }
 
   function create() {
@@ -87,6 +89,7 @@ var config = {
 
     // Controles
     delteStructure(this);
+    getLastClicked(this);
 
     // Infotext
     tilePosition = this.add.text(20, 20, 'Tile Position:', { fontSize: '15px', fill: '#fff' });
@@ -94,8 +97,17 @@ var config = {
     mousePosition = this.add.text(20, 60, 'Mouse Position: ', { fontSize: '15px', fill: '#fff' });
     belegt = this.add.text(20, 80, 'Tile Status: ', { fontSize: '15px', fill: '#fff' });
     structureName = this.add.text(20, 100, 'Gebäude: ', { fontSize: '15px', fill: '#fff' });
+    mausInfo = this.add.text(20, 120, 'Mausinfo: ', { fontSize: '15px', fill: '#fff' });
  
     // Bestimmung des ausgewählten Tiles
+    this.input.on('pointerdown', function (pointer) {
+      if(lastClicked.length != 0){
+        mausInfo.setText('Mausbutton: ' + lastClicked[0].button + '\n' +
+                          'Zuletzt geklickte Tile Position X: ' + lastClicked[0].tilePositionX + '\n' +
+                          'Zuletzt geklickte Tile Position Y: ' + lastClicked[0].tilePositionY )
+    }
+    }, this);
+
     this.input.on('pointermove', function (pointer) {
     mousePosition.setText('Mouse X: ' + pointer.x + ' Mouse Y: ' + pointer.y);
 
@@ -120,7 +132,7 @@ var config = {
       var idxMap = IsometricMap.map[selectedTileX][selectedTileY];
       tileName.setText('Tile:' + IsometricMap.tiles[idxMap].replace("img/images/",""));
       if(IsometricMap.buildingMap[selectedTileX][selectedTileY] !=0){
-        structureName.setText('Gebäude:' + IsometricMap.buildingMap[selectedTileX][selectedTileY].name);
+        structureName.setText('Gebäude: ' + IsometricMap.buildingMap[selectedTileX][selectedTileY].name);
       }else {
         structureName.setText('Gebäude: ');
       }
@@ -128,26 +140,7 @@ var config = {
    }, this);
  
    // Platzierung der Gebäude
-   this.input.on('pointerdown', function (pointer) {
-    if (pointer.leftButtonDown()) {
-       if(!isSelected){
-          drawHq(selectedTileX,selectedTileY)
-       }
-
-       if(IsometricMap.buildingMap[selectedTileX][selectedTileY].isSelected) {
-        IsometricMap.buildingMap[selectedTileX][selectedTileY].image.clearTint();
-        IsometricMap.buildingMap[selectedTileX][selectedTileY].isSelected = false;
-      }
-    }
-
-    if (pointer.rightButtonDown()) {
-      
-      if(isSelected) {
-        IsometricMap.buildingMap[selectedTileX][selectedTileY].image.setTint(0x00BFFF  , 0.05);
-        IsometricMap.buildingMap[selectedTileX][selectedTileY].isSelected = true;
-      }
-    }
-      }, this);
+   placeBuilding(this);
 
     // Map wrid gezeichnet   
     for(var Xi = (this.Xtiles - 1); Xi >= 0; Xi--) {
