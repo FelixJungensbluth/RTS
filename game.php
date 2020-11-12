@@ -6,6 +6,7 @@
   <script src="js/src/game/map.js"></script>
   <script src="js/src/game/structures/hq.js"></script>
   <script src="js/src/game/controles/cameraControles.js"></script>
+  <script src="js/src/game/controles/inputControles.js"></script>
   <script src="js/src/game/engine.js"></script>
 </head>
 <body>
