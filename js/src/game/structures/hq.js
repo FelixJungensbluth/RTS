@@ -13,7 +13,7 @@ function drawHq(Xi, Yi) {
     "isSelected": false,
     "image": building,
   }
-  
+
   this.buildingArray.push(hq);
   IsometricMap.buildingMap[Xi][Yi] = hq;
-  }
+}
