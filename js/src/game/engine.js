@@ -52,6 +52,8 @@ var config = {
   var mousePosition;
   var belegt;
   var structureName;
+
+  var isSelected = false;
   
   function preload() {
   this.buildingPositionX = new Array();
@@ -92,10 +94,6 @@ var config = {
  
     // Bestimmung des ausgewählten Tiles
     this.input.on('pointermove', function (pointer) {
-      if (pointer.rightButtonDown()) {
-        selectionRectangle.height += 10;
-        selectionRectangle.width += 10
-    }
     mousePosition.setText('Mouse X: ' + pointer.x + ' Mouse Y: ' + pointer.y);
 
     pointer.x = (pointer.x - tileColumnOffset / 2 - originX)+camMoveX;
@@ -109,37 +107,58 @@ var config = {
     // InfoText
     tilePosition.setText('Tile X: ' + selectedTileX + ' Tile Y: ' + selectedTileY);
     if(selectedTileX >=0 && selectedTileY >=0){
-      if(IsometricMap.buildingMap[selectedTileX][selectedTileY] == 1){
+      if(IsometricMap.buildingMap[selectedTileX][selectedTileY].id == 1){
         belegt.setText('Tile Status: Belegt');
+        isSelected = true;
       }else{
+        isSelected = false;
         belegt.setText('Tile Status: frei');
       }
       var idxMap = IsometricMap.map[selectedTileX][selectedTileY];
       var idxBuilding = IsometricMap.buildingMap[selectedTileX][selectedTileY];
       tileName.setText('Tile:' + IsometricMap.tiles[idxMap].replace("img/images/",""));
       if(idxBuilding != 0){
-        structureName.setText('Gebäude:' + IsometricMap.buildings[idxBuilding-1].replace("img/images/",""));
+       // structureName.setText('Gebäude:' + IsometricMap.buildings[idxBuilding-1].replace("img/images/",""));
       }else {
         structureName.setText('Gebäude: ');
       }
     }
+
+    console.log(isSelected);
    }, this);
  
    // Platzierung der Gebäude
    this.input.on('pointerdown', function (pointer) {
     if (pointer.leftButtonDown()) {
-       if(IsometricMap.buildingMap[selectedTileX][selectedTileY] != 1){
+       if(!isSelected){
           drawHq(selectedTileX,selectedTileY)
-          console.log(buildingArray[buildingArray.length-1]);
-          console.log(IsometricMap.buildingMap.toString());
        }
+
+       if(IsometricMap.buildingMap[selectedTileX][selectedTileY].isSelected) {
+        IsometricMap.buildingMap[selectedTileX][selectedTileY].image.clearTint();
+        IsometricMap.buildingMap[selectedTileX][selectedTileY].isSelected = false;
+      }
     }
 
     if (pointer.rightButtonDown()) {
-
-      selectionRectangle = this.add.rectangle(pointer.x + camMoveX, pointer.y +camMoveY, selectionRectWidth, selectionRectHeight, 0xffffff, 0.5);
+      
+      if(isSelected) {
+        IsometricMap.buildingMap[selectedTileX][selectedTileY].image.setTint(0x00BFFF  , 0.05);
+        IsometricMap.buildingMap[selectedTileX][selectedTileY].isSelected = true;
+      }
     }
       }, this);
+
+      this.input.keyboard.on('keydown-A', function (event) {
+
+        console.log('Before: ' + IsometricMap.buildingMap[selectedTileX][selectedTileY]);
+       if(IsometricMap.buildingMap[selectedTileX][selectedTileY].isSelected){
+        IsometricMap.buildingMap[selectedTileX][selectedTileY].image.destroy();
+        IsometricMap.buildingMap[selectedTileX][selectedTileY] = 0;
+        console.log('After: ' +IsometricMap.buildingMap[selectedTileX][selectedTileY]);
+
+       }
+    });
  
     // Map wrid gezeichnet   
     for(var Xi = (this.Xtiles - 1); Xi >= 0; Xi--) {
