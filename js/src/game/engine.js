@@ -85,6 +85,9 @@ var config = {
     moveCamera(this,cam);
     zoomCamera(this,cam);
 
+    // Controles
+    delteStructure(this);
+
     // Infotext
     tilePosition = this.add.text(20, 20, 'Tile Position:', { fontSize: '15px', fill: '#fff' });
     tileName = this.add.text(20, 40, 'Tile: ', { fontSize: '15px', fill: '#fff' });
@@ -115,16 +118,13 @@ var config = {
         belegt.setText('Tile Status: frei');
       }
       var idxMap = IsometricMap.map[selectedTileX][selectedTileY];
-      var idxBuilding = IsometricMap.buildingMap[selectedTileX][selectedTileY];
       tileName.setText('Tile:' + IsometricMap.tiles[idxMap].replace("img/images/",""));
-      if(idxBuilding != 0){
-       // structureName.setText('Gebäude:' + IsometricMap.buildings[idxBuilding-1].replace("img/images/",""));
+      if(IsometricMap.buildingMap[selectedTileX][selectedTileY] !=0){
+        structureName.setText('Gebäude:' + IsometricMap.buildingMap[selectedTileX][selectedTileY].name);
       }else {
         structureName.setText('Gebäude: ');
       }
     }
-
-    console.log(isSelected);
    }, this);
  
    // Platzierung der Gebäude
@@ -149,17 +149,6 @@ var config = {
     }
       }, this);
 
-      this.input.keyboard.on('keydown-A', function (event) {
-
-        console.log('Before: ' + IsometricMap.buildingMap[selectedTileX][selectedTileY]);
-       if(IsometricMap.buildingMap[selectedTileX][selectedTileY].isSelected){
-        IsometricMap.buildingMap[selectedTileX][selectedTileY].image.destroy();
-        IsometricMap.buildingMap[selectedTileX][selectedTileY] = 0;
-        console.log('After: ' +IsometricMap.buildingMap[selectedTileX][selectedTileY]);
-
-       }
-    });
- 
     // Map wrid gezeichnet   
     for(var Xi = (this.Xtiles - 1); Xi >= 0; Xi--) {
     for(var Yi = 0; Yi < this.Ytiles; Yi++) {
