@@ -55,9 +55,16 @@ var belegt;
 var structureName;
 var mausInfo;
 
+var mausX;
+var mausY;
+
 var isSelected = false; // Boolean ob Gebaude ausgewaehlt ist 
 
 var lastClicked = new Array(); // Array um Werte des letzten Mausklicks zu speichern 
+
+var pressed = "none";
+
+var selectedStructure;
 
 function preload() {
   this.buildingPositionX = new Array();
@@ -76,6 +83,7 @@ function preload() {
 
 function create() {
   scene = this;
+  this.input.setDefaultCursor('url(http://labs.phaser.io/assets/input/cursors/blue.cur), pointer');
   this.input.mouse.disableContextMenu();
 
   this.Xtiles = IsometricMap.map.length;
@@ -96,23 +104,15 @@ function create() {
     fontSize: '15px',
     fill: '#fff'
   });
-  tileName = this.add.text(20, 40, 'Tile: ', {
+  mousePosition = this.add.text(20, 40, 'Mouse Position: ', {
     fontSize: '15px',
     fill: '#fff'
   });
-  mousePosition = this.add.text(20, 60, 'Mouse Position: ', {
+  belegt = this.add.text(20, 60, 'Tile Status: ', {
     fontSize: '15px',
     fill: '#fff'
   });
-  belegt = this.add.text(20, 80, 'Tile Status: ', {
-    fontSize: '15px',
-    fill: '#fff'
-  });
-  structureName = this.add.text(20, 100, 'Gebäude: ', {
-    fontSize: '15px',
-    fill: '#fff'
-  });
-  mausInfo = this.add.text(20, 120, 'Mausinfo: ', {
+  mausInfo = this.add.text(20, 80, 'Mausinfo: ', {
     fontSize: '15px',
     fill: '#fff'
   });
@@ -122,12 +122,27 @@ function create() {
     if (lastClicked.length != 0) {
       mausInfo.setText('Mausbutton: ' + lastClicked[0].button + '\n' +
         'Zuletzt geklickte Tile Position X: ' + lastClicked[0].tilePositionX + '\n' +
-        'Zuletzt geklickte Tile Position Y: ' + lastClicked[0].tilePositionY)
+        'Zuletzt geklickte Tile Position Y: ' + lastClicked[0].tilePositionY);
     }
   }, this);
 
+  // Bestimming des aktuellen Tiles 
   this.input.on('pointermove', function (pointer) {
     mousePosition.setText('Mouse X: ' + pointer.x + ' Mouse Y: ' + pointer.y);
+     mausX = pointer.x;
+     mausY = pointer.y;
+
+    if(pressed == "s"){
+      selectedStructure.x = pointer.x + camMoveX;
+      selectedStructure.y = pointer.y + 8 + camMoveY;
+
+      if((IsometricMap.buildingMap[selectedTileX][selectedTileY].id == 1)) {
+        selectedStructure.setTint(0xFF0040, 0.5);
+      } else {
+        selectedStructure.clearTint();
+      }
+    }
+    
 
     pointer.x = (pointer.x - tileColumnOffset / 2 - originX) + camMoveX;
     pointer.y = (pointer.y - tileRowOffset / 2 - originY) + camMoveY;
@@ -139,22 +154,6 @@ function create() {
 
     // InfoText
     tilePosition.setText('Tile X: ' + selectedTileX + ' Tile Y: ' + selectedTileY);
-    if (selectedTileX >= 0 && selectedTileY >= 0) {
-      if (IsometricMap.buildingMap[selectedTileX][selectedTileY].id == 1) {
-        belegt.setText('Tile Status: Belegt');
-        isSelected = true;
-      } else {
-        isSelected = false;
-        belegt.setText('Tile Status: frei');
-      }
-      var idxMap = IsometricMap.map[selectedTileX][selectedTileY];
-      tileName.setText('Tile:' + IsometricMap.tiles[idxMap].replace("img/images/", ""));
-      if (IsometricMap.buildingMap[selectedTileX][selectedTileY] != 0) {
-        structureName.setText('Gebäude: ' + IsometricMap.buildingMap[selectedTileX][selectedTileY].name);
-      } else {
-        structureName.setText('Gebäude: ');
-      }
-    }
   }, this);
 
   // Platzierung der Gebäude
@@ -174,9 +173,27 @@ function drawTile(Xi, Yi) {
   var offY = Yi * this.tileRowOffset / 2 - Xi * this.tileRowOffset / 2 + this.originY;
 
   var imageIndex = IsometricMap.map[Xi][Yi];
-  scene.add.image(offX, offY, imageIndex);
+  var tileImage = scene.add.image(offX, offY, imageIndex).setInteractive();
+  var tileObject = {
+    "id": imageIndex,
+    "image": tileImage,
+  }
+  IsometricMap.map[Xi][Yi] = tileObject;
 }
 
-function update(time, delta) {
+function update() {
+  test2();
+  isPlacingAllowed();
+}
 
+function test2(){
+  if (selectedTileX >= 0 && selectedTileY >= 0) {
+    if (IsometricMap.buildingMap[selectedTileX][selectedTileY].id == 1) {
+      belegt.setText('Tile Status: Belegt');
+      isSelected = true;
+    } else {
+      isSelected = false;
+      belegt.setText('Tile Status: frei');
+    }
+  }
 }

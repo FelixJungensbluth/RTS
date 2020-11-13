@@ -1,23 +1,19 @@
-// Ausgewaeltes Gebaeude wird geloescht wenn A gedrueckt wird  
-function delteStructure(szene) {
-    szene.input.keyboard.on('keydown-A', function (event) {
-        if (IsometricMap.buildingMap[selectedTileX][selectedTileY].isSelected) {
-
-            // Bild wird geloescht
-            IsometricMap.buildingMap[selectedTileX][selectedTileY].image.destroy();
-            IsometricMap.buildingMap[selectedTileX][selectedTileY] = 0;
-        }
-    });
-}
-
 // Gebaeude werden durch linksklick platziert
 function placeBuilding(szene) {
-    szene.input.on('pointerdown', function (pointer) {
-        if (pointer.leftButtonDown()) {
+    szene.input.keyboard.on('keydown-S', function (event) {
+        if(pressed == "none") {
+            selectedStructure = scene.add.image(mausX+ camMoveX, mausY+8+ camMoveY, 'hq').setInteractive();
+        }
+        pressed = "s" 
+    });
 
-            // wenn Tile frei ist kann Gebaeude platziert ist 
-            if (!isSelected) {
+    szene.input.on('pointerdown', function (pointer) {
+
+        if (pointer.leftButtonDown()) {
+            if (!isSelected && pressed == "s") {
+                pressed = "none"
                 drawHq(selectedTileX, selectedTileY)
+                selectedStructure.destroy();
             }
 
             // Auswahl wird entfernt 
@@ -28,7 +24,6 @@ function placeBuilding(szene) {
         }
 
         if (pointer.rightButtonDown()) {
-
             // Auswahl wird hinzugefuegt.
             if (isSelected) {
                 IsometricMap.buildingMap[selectedTileX][selectedTileY].image.setTint(0x00BFFF, 0.05);
@@ -37,6 +32,18 @@ function placeBuilding(szene) {
 
         }
     }, this);
+}
+
+// Ausgewaeltes Gebaeude wird geloescht wenn A gedrueckt wird  
+function delteStructure(szene) {
+    szene.input.keyboard.on('keydown-A', function (event) {
+        if (IsometricMap.buildingMap[selectedTileX][selectedTileY].isSelected) {
+
+            // Bild wird geloescht
+            IsometricMap.buildingMap[selectedTileX][selectedTileY].image.destroy();
+            IsometricMap.buildingMap[selectedTileX][selectedTileY] = 0;
+        }
+    });
 }
 
 // Infos zum letzten klick werden zwischengespeichert 
@@ -79,6 +86,15 @@ function getLastClicked(szene) {
 
         this.lastClicked.push(lastClickInfo);
     }, this);
+}
 
 
+function isPlacingAllowed() {
+    if(pressed == "s"){  
+        if((IsometricMap.buildingMap[selectedTileX][selectedTileY].id == 1)) {
+          selectedStructure.setTint(0xFF0040, 0.5);
+        } else {
+          selectedStructure.clearTint();
+        }
+      }
 }
