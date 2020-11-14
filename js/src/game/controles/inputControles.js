@@ -91,10 +91,12 @@ function getLastClicked(szene) {
 
 function isPlacingAllowed() {
     if(pressed == "s"){  
+        if (selectedTileX >= 0 && selectedTileY >= 0 && selectedTileX <IsometricMap.buildingMap.length && selectedTileY <= IsometricMap.buildingMap.length)  {
         if((IsometricMap.buildingMap[selectedTileX][selectedTileY].id == 1)) {
           selectedStructure.setTint(0xFF0040, 0.5);
         } else {
           selectedStructure.clearTint();
         }
       }
+    }
 }

@@ -54,6 +54,7 @@ var mousePosition;
 var belegt;
 var structureName;
 var mausInfo;
+var time;
 
 var mausX;
 var mausY;
@@ -65,6 +66,9 @@ var lastClicked = new Array(); // Array um Werte des letzten Mausklicks zu speic
 var pressed = "none";
 
 var selectedStructure;
+var minutes;
+var  seconds;
+
 
 function preload() {
   this.buildingPositionX = new Array();
@@ -84,6 +88,11 @@ function preload() {
 function create() {
   scene = this;
   this.input.setDefaultCursor('url(http://labs.phaser.io/assets/input/cursors/blue.cur), pointer');
+  timedEvent = this.time.addEvent();
+
+
+
+  
   this.input.mouse.disableContextMenu();
 
   this.Xtiles = IsometricMap.map.length;
@@ -117,6 +126,11 @@ function create() {
     fill: '#fff'
   });
 
+  time = this.add.text(1750, 20, 'Timer: ', {
+    fontSize: '20px',
+    fill: '#39ff14'
+  });
+
   // Bestimmung des ausgewählten Tiles
   this.input.on('pointerdown', function (pointer) {
     if (lastClicked.length != 0) {
@@ -133,14 +147,17 @@ function create() {
      mausY = pointer.y;
 
     if(pressed == "s"){
-      selectedStructure.x = pointer.x + camMoveX;
-      selectedStructure.y = pointer.y + 8 + camMoveY;
+      console.log(camMoveX);
+      selectedStructure.x = (mausX + camMoveX);
+      selectedStructure.y = (mausY + camMoveY);
 
+      if (selectedTileX >= 0 && selectedTileY >= 0 && selectedTileX < IsometricMap.buildingMap.length && selectedTileY <= IsometricMap.buildingMap.length)  {
       if((IsometricMap.buildingMap[selectedTileX][selectedTileY].id == 1)) {
         selectedStructure.setTint(0xFF0040, 0.5);
       } else {
         selectedStructure.clearTint();
       }
+    }
     }
     
 
@@ -181,13 +198,14 @@ function drawTile(Xi, Yi) {
   IsometricMap.map[Xi][Yi] = tileObject;
 }
 
-function update() {
+function update(time) {
   test2();
   isPlacingAllowed();
+  displayTime(time);
 }
 
 function test2(){
-  if (selectedTileX >= 0 && selectedTileY >= 0) {
+  if (selectedTileX >= 0 && selectedTileY >= 0 && selectedTileX <IsometricMap.buildingMap.length && selectedTileY <= IsometricMap.buildingMap.length)  {
     if (IsometricMap.buildingMap[selectedTileX][selectedTileY].id == 1) {
       belegt.setText('Tile Status: Belegt');
       isSelected = true;
@@ -197,3 +215,10 @@ function test2(){
     }
   }
 }
+
+function displayTime(milSec){
+minutes = Math.floor((milSec/1000) / 60);
+seconds = Math.floor((milSec/1000) - (minutes * 60));
+time.setText('Timer: ' + minutes + ':' + seconds);
+}
+
