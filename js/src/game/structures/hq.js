@@ -6,12 +6,13 @@ function drawHq(Xi, Yi) {
   var hq = {
     "id": "1",
     "name": "Hauptquartier",
-    "positionX": Xi,
-    "positionY": Yi,
+    "positionX": offX,
+    "positionY": offY,
     "AnzhalTilesX": "1",
     "AnzhalTilesY": "1",
     "isSelected": false,
     "image": building,
+    "canBeSelected": false,
   }
 
   this.buildingArray.push(hq);

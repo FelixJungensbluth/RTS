@@ -1,10 +1,10 @@
 // Gebaeude werden durch linksklick platziert
 function placeBuilding(szene) {
     szene.input.keyboard.on('keydown-S', function (event) {
-        if(pressed == "none") {
-            selectedStructure = scene.add.image(mausX+ camMoveX, mausY+8+ camMoveY, 'hq').setInteractive();
+        if (pressed == "none") {
+            selectedStructure = scene.add.image(mausX + camMoveX, mausY + 8 + camMoveY, 'hq').setInteractive();
         }
-        pressed = "s" 
+        pressed = "s"
     });
 
     szene.input.on('pointerdown', function (pointer) {
@@ -12,7 +12,9 @@ function placeBuilding(szene) {
         if (pointer.leftButtonDown()) {
             if (!isSelected && pressed == "s") {
                 pressed = "none"
-                drawHq(selectedTileX, selectedTileY)
+                drawHq(selectedTileX, selectedTileY);
+                buildingTime(szene);
+
                 selectedStructure.destroy();
             }
 
@@ -25,9 +27,12 @@ function placeBuilding(szene) {
 
         if (pointer.rightButtonDown()) {
             // Auswahl wird hinzugefuegt.
-            if (isSelected) {
+            if (isSelected && IsometricMap.buildingMap[selectedTileX][selectedTileY].canBeSelected) {
+
                 IsometricMap.buildingMap[selectedTileX][selectedTileY].image.setTint(0x00BFFF, 0.05);
                 IsometricMap.buildingMap[selectedTileX][selectedTileY].isSelected = true;
+
+
             }
 
         }
@@ -90,13 +95,13 @@ function getLastClicked(szene) {
 
 
 function isPlacingAllowed() {
-    if(pressed == "s"){  
-        if (selectedTileX >= 0 && selectedTileY >= 0 && selectedTileX <IsometricMap.buildingMap.length && selectedTileY <= IsometricMap.buildingMap.length)  {
-        if((IsometricMap.buildingMap[selectedTileX][selectedTileY].id == 1)) {
-          selectedStructure.setTint(0xFF0040, 0.5);
-        } else {
-          selectedStructure.clearTint();
+    if (pressed == "s") {
+        if (selectedTileX >= 0 && selectedTileY >= 0 && selectedTileX < IsometricMap.buildingMap.length && selectedTileY <= IsometricMap.buildingMap.length) {
+            if ((IsometricMap.buildingMap[selectedTileX][selectedTileY].id == 1)) {
+                selectedStructure.setTint(0xFF0040, 0.5);
+            } else {
+                selectedStructure.clearTint();
+            }
         }
-      }
     }
 }

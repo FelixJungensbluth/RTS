@@ -67,7 +67,18 @@ var pressed = "none";
 
 var selectedStructure;
 var minutes;
-var  seconds;
+var seconds;
+
+var timeBar;
+var timeBarBackGround;
+
+var timedEvent;
+
+var c = 0;
+
+var healthBarArray = new Array();
+var healthBarBackGroundArray = new Array();
+
 
 
 function preload() {
@@ -88,11 +99,17 @@ function preload() {
 function create() {
   scene = this;
   this.input.setDefaultCursor('url(http://labs.phaser.io/assets/input/cursors/blue.cur), pointer');
-  timedEvent = this.time.addEvent();
+
+  timedEvent = this.time.addEvent({
+    delay: 500,
+    callback: onEvent,
+    callbackScope: this,
+    loop: true
+  });
 
 
 
-  
+
   this.input.mouse.disableContextMenu();
 
   this.Xtiles = IsometricMap.map.length;
@@ -143,23 +160,23 @@ function create() {
   // Bestimming des aktuellen Tiles 
   this.input.on('pointermove', function (pointer) {
     mousePosition.setText('Mouse X: ' + pointer.x + ' Mouse Y: ' + pointer.y);
-     mausX = pointer.x;
-     mausY = pointer.y;
+    mausX = pointer.x;
+    mausY = pointer.y;
 
-    if(pressed == "s"){
+    if (pressed == "s") {
       console.log(camMoveX);
       selectedStructure.x = (mausX + camMoveX);
       selectedStructure.y = (mausY + camMoveY);
 
-      if (selectedTileX >= 0 && selectedTileY >= 0 && selectedTileX < IsometricMap.buildingMap.length && selectedTileY <= IsometricMap.buildingMap.length)  {
-      if((IsometricMap.buildingMap[selectedTileX][selectedTileY].id == 1)) {
-        selectedStructure.setTint(0xFF0040, 0.5);
-      } else {
-        selectedStructure.clearTint();
+      if (selectedTileX >= 0 && selectedTileY >= 0 && selectedTileX < IsometricMap.buildingMap.length && selectedTileY <= IsometricMap.buildingMap.length) {
+        if ((IsometricMap.buildingMap[selectedTileX][selectedTileY].id == 1)) {
+          selectedStructure.setTint(0xFF0040, 0.5);
+        } else {
+          selectedStructure.clearTint();
+        }
       }
     }
-    }
-    
+
 
     pointer.x = (pointer.x - tileColumnOffset / 2 - originX) + camMoveX;
     pointer.y = (pointer.y - tileRowOffset / 2 - originY) + camMoveY;
@@ -204,8 +221,8 @@ function update(time) {
   displayTime(time);
 }
 
-function test2(){
-  if (selectedTileX >= 0 && selectedTileY >= 0 && selectedTileX <IsometricMap.buildingMap.length && selectedTileY <= IsometricMap.buildingMap.length)  {
+function test2() {
+  if (selectedTileX >= 0 && selectedTileY >= 0 && selectedTileX < IsometricMap.buildingMap.length && selectedTileY <= IsometricMap.buildingMap.length) {
     if (IsometricMap.buildingMap[selectedTileX][selectedTileY].id == 1) {
       belegt.setText('Tile Status: Belegt');
       isSelected = true;
@@ -216,9 +233,47 @@ function test2(){
   }
 }
 
-function displayTime(milSec){
-minutes = Math.floor((milSec/1000) / 60);
-seconds = Math.floor((milSec/1000) - (minutes * 60));
-time.setText('Timer: ' + minutes + ':' + seconds);
+function displayTime(milSec) {
+  minutes = Math.floor((milSec / 1000) / 60);
+  seconds = Math.floor((milSec / 1000) - (minutes * 60));
+  time.setText('Timer: ' + minutes + ':' + seconds);
 }
 
+function buildingTime(scene, sec) {
+
+  console.log(seconds);
+
+  timeBarBackGround = scene.add.rectangle(IsometricMap.buildingMap[selectedTileX][selectedTileY].positionX,
+    IsometricMap.buildingMap[selectedTileX][selectedTileY].positionY - 40,
+    100, 10, 0xffffff);
+
+  timeBar = scene.add.rectangle(IsometricMap.buildingMap[selectedTileX][selectedTileY].positionX - 50,
+    IsometricMap.buildingMap[selectedTileX][selectedTileY].positionY - 40,
+    0, 10, 0x39ff14);
+
+  var buildInfo = {
+    "buildingX": selectedTileX,
+    "buildingY": selectedTileY,
+    "background": timeBarBackGround,
+    "progress": timeBar,
+  }
+
+  healthBarArray.push(buildInfo);
+
+}
+
+function onEvent() {
+  if (timeBar) {
+    for (var i = 0; i < healthBarArray.length; i++) {
+      if (healthBarArray[i].progress.width <= 100) {
+        healthBarArray[i].progress.width += 10;
+      }
+
+      if (healthBarArray[i].progress.width == 100) {
+        IsometricMap.buildingMap[healthBarArray[i].buildingX][healthBarArray[i].buildingY].canBeSelected = true;
+        healthBarArray[i].progress.destroy();
+        healthBarArray[i].background.destroy();
+      }
+    }
+  }
+}
