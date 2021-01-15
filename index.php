@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Tolles RTS Game</title>
     
-    <script src="less.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.15.1/dist/phaser-arcade-physics.min.js"></script>
-    <link rel="stylesheet/less" type="text/css" href="globalstyles.less" />
-    <link rel="stylesheet/less" type="text/css" href="landingpageStyle.less" />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Teko&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <script>
+   <!--  <script>
     var config = {
         type: Phaser.AUTO,
         width: 1280,
@@ -58,7 +58,14 @@
 
         emitter.startFollow(logo);
     }
-    </script>
-
+    </script> -->
+    <div class="main--headline--container">
+        <span class="index--main--headline">Bist du bereit dieses tolle Spiel zu spielen?</span><br>
+        <span class="index--main--subheadline">Dieser Text beschreibt unser tolles Spiel und wiederholt sich auf gar keinen Fall.
+        Dieser<br> Text beschreibt unser tolles Spiel und wiederholt sich auf gar keinen Fall. 
+        Dieser Text beschreibt<br> unser tolles Spiel und wiederholt sich auf gar keinen Fall. 
+        Dieser Text beschreibt unser tolles Spiel und<br> wiederholt sich auf gar keinen Fall. 
+        Dieser Text beschreibt unser tolles Spiel und <br>wiederholt sich auf gar keinen Fall. </span>
+    </div>
 </body>
 </html>
