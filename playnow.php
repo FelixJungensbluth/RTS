@@ -46,54 +46,38 @@
             </nav>
         </div>
     </header>
-    <div class="index--banner--container">
-        <div class="gameHeadlineContainer">
-        <span class="gameHeadline">RTSGAME</span>
+        <div class="play--now--container">
+            <div class="play--now--formular--container">
+                <div class="play--now--formular--headline">
+                    <span class="formular--headline">Anmeldung</span>
+                </div>
+               
+                <form class="form">
+                    
+                   
+                    <div class="form--row">
+                    
+                        <label>Email</label>
+                            
+                                <input tabindex="1" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control" placeholder="Email" >
+                   
+                    </div>
+    
+                     
+                    <div class="form--row">
+                    
+                        <label>Passwort</label>
+                            
+                                <input tabindex="2" type="password" class="form-control" placeholder="Passwort" >
+                                <span class="no--account">Du hast noch kein Konto erstellt? <a href="register.php">Klicke hier </a> um dich zu registrieren.</span>
+                    </div>
+
+                   
+                            <button type="submit" class="btn submit--btn">Bestätigen</button>
+                </form> 
+               
+            </div>
         </div>
-    </div>
-    <div class="index--3--flex--container">
-        <div class="index--flex--content">
-            <img src="resources/juwel.png" class="index--icon icon1"></img><br>
-            <span class="sub-headline">Besetze<br>Rohstoffvorkommen</span>
-            <span class="normal-text">Lorem ipsum dolor sit amet.<br>Tanem sunt elorem generes.</span>
-
-        </div>
-        <div class="index--flex--content">
-            <img src="resources/globus.png" class="index--icon icon1"></img><br>
-            <span class="sub-headline">Spiele Online<br>gegen deine Freunde</span>
-            <span class="normal-text">Lorem ipsum dolor sit amet.<br>Tanem sunt elorem generes.</span>
-
-        </div>
-        <div class="index--flex--content">
-            <img src="resources/gewinner.png" class="index--icon icon1"></img><br>
-            <span class="sub-headline">Führe deine<br>Armee zum Sieg</span><br>
-            <span class="normal-text">Lorem ipsum dolor sit amet.<br>Tanem sunt elorem generes.</span>
-
-        </div>
-    </div>
-    <div class="index--flex--container image--left">
-        <div class="flex--image--container"></div>
-        <div class="flex--text--container"></div>
-    </div>
-    <div class="index--flex--container image--right">
-        <div class="flex--image--container"></div>
-        <div class="flex--text--container"></div>
-    </div>
-    <div class="index--flex--container image--left">
-        <div class="flex--image--container"></div>
-        <div class="flex--text--container"></div>
-    </div>
-    <div class="footer">
-
-        <ul class="footer--content">
-            <li><a target="_blank" href="https://www.instagram.com/">INSTAGRAM</a></li>
-            <li><a target="_blank" href="https://de-de.facebook.com/">FACEBOOK</a></li>
-            <li><a target="_blank"  href="https://twitter.com/?lang=de">TWITTER</a></li>
-            <li><a target="_blank" href="https://www.youtube.com/">YOUTUBE</a></li>
-            <li><a target="_blank" href="https://dribbble.com/julesforrest">IMPRESSUM</a></li>
-            
-
-        </ul>
-    </div>
+    
 </body>
 </html>

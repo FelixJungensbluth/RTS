@@ -1,3 +1,456 @@
+@font-face {
+  font-family: 'Bungee';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/bungee/v6/N0bU2SZBIuF2PU_ECg.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Me5Q.ttf) format('truetype');
+}
 body {
-  background-color: #ffa200;
+  background-color: #f1f1f1;
+  text-align: center;
+  margin: 0 auto;
+}
+.index--main--headline {
+  font-size: 5rem;
+  font-family: 'Teko', sans-serif;
+  text-align: center;
+  color: white;
+  line-height: 6rem;
+}
+.index--main--subheadline {
+  font-size: 1.3rem;
+  font-family: 'Roboto', cursive;
+  text-align: center;
+  color: white;
+}
+.main--headline--container {
+  padding: 50px;
+}
+.nav--container {
+  width: 100%;
+  margin: 0 auto;
+  z-index: 10;
+}
+nav {
+  float: left;
+  background-color: white;
+  width: 100%;
+  height: 90px;
+  position: fixed;
+  box-shadow: -3px 3px 20px rgba(0, 0, 0, 0.3);
+  z-index: 999;
+}
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  height: auto;
+  display: table-row;
+}
+nav li {
+  display: table-cell;
+  position: relative;
+  height: 90px;
+  line-height: 90px;
+  align-items: center;
+}
+nav .nav--buttons {
+  color: #111111;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 30px;
+  font-family: 'Teko', sans-serif;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-bottom: 0px;
+  margin-top: 10px;
+  height: 100%;
+}
+nav .nav--buttons:hover {
+  color: red;
+  transition: 50ms ease-in-out;
+}
+nav .nav--buttons::before {
+  content: '';
+  display: block;
+  height: 3px;
+  background-color: red;
+  position: absolute;
+  top: 84px;
+  width: 0%;
+  left: 50%;
+  transition: all ease-in-out 150ms;
+}
+nav .nav--buttons:hover::before {
+  width: 100%;
+  left: 0;
+}
+.temp--logo {
+  float: left;
+  color: red;
+  font-size: 4rem;
+  font-family: 'Teko', sans-serif;
+  padding-left: 20px;
+  padding-right: 40px;
+  height: 100%;
+}
+.logocolor {
+  color: #111111;
+}
+header {
+  height: 90px;
+  margin: 0 auto;
+}
+.drop--down--arrow {
+  color: #666;
+  font-size: 25px;
+}
+a:hover span {
+  color: white;
+  transition: 150ms ease-in-out;
+}
+.gameinfo--dropdown--container button {
+  color: #111111;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 30px;
+  font-family: 'Teko', sans-serif;
+  background-color: white;
+  border: none;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 15px;
+  padding-bottom: 10px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  height: 100%;
+}
+.gameinfo--dropdown--container {
+  height: 90px;
+}
+.gameinfo--dropdown--container:hover {
+  height: normal;
+}
+.dropdown {
+  display: none;
+  background-color: lightgray;
+  height: 0%;
+  list-style: none;
+  line-height: normal;
+  position: relative;
+  top: -48px;
+  opacity: 0;
+  box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.2);
+  z-index: 0;
+  clip-path: polygon(0 45px, 0 100%, 100% 100%, 100% 45px);
+}
+.gameinfo--dropdown--container:hover .dropdown {
+  display: block;
+  visibility: visible;
+  top: -4px;
+  opacity: 1;
+  clip-path: polygon(0 0px, 0 100%, 100% 100%, 100% 0px);
+  transition: all ease-in-out 200ms;
+  transition-delay: 0.15s;
+}
+.gameinfo--dropdown--container:hover .drop--down--arrow {
+  color: red;
+  content: '\25B2';
+  transition: 0.25s ease-in-out;
+}
+.dropdown a {
+  position: relative;
+  display: inline-block;
+  line-height: 75px;
+  font-family: 'Teko', sans-serif;
+  font-size: 25px;
+  width: 100%;
+  padding: 0px;
+  height: 100%;
+  color: white;
+}
+.dropdown a:hover {
+  box-shadow: inset 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
+  text-shadow: 5px 5px 2px 3px rgba(0, 0, 0, 0.4);
+  transition: 0.25s ease-in-out;
+}
+.dropdown--content {
+  padding: 0px;
+  margin: 0px;
+}
+.dropdown li {
+  height: 75px;
+  margin: 0px;
+  display: inline-block;
+  position: relative;
+  background-color: red;
+  width: 100%;
+  padding: 0px;
+  line-height: normal;
+}
+.play--now--button {
+  position: absolute;
+  top: 15px;
+  right: 40px;
+  height: auto;
+  width: auto;
+  background-color: red;
+  border-radius: 5px;
+  font-size: 30px;
+  text-transform: uppercase;
+  font-family: 'Teko', sans-serif;
+  padding: 10px;
+  color: white;
+  padding-left: 15px;
+  padding-right: 15px;
+  box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+}
+.register--button {
+  position: absolute;
+  top: 27px;
+  right: calc(60px + 160px);
+  height: 32px;
+  width: auto;
+  background-color: white;
+  border: 2px solid red;
+  border-radius: 5px;
+  font-size: 30px;
+  text-transform: uppercase;
+  font-family: 'Teko', sans-serif;
+  color: red;
+  padding-bottom: 5px;
+  padding-top: 0px;
+  padding-left: 15px;
+  padding-right: 15px;
+  box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+}
+.index--banner--container {
+  background-color: green;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 100%;
+  height: 800px;
+  margin: 0px;
+  padding: 0px;
+}
+.dropDownButton::after {
+  font-size: 15px;
+  content: '\25BC';
+  display: inline;
+  vertical-align: 20%;
+}
+.gameinfo--dropdown--container:hover .dropDownButton:after {
+  font-size: 15px;
+  content: '\25B2';
+}
+.index--banner--container {
+  text-align: center;
+}
+.gameHeadlineContainer {
+  margin: auto;
+  height: 100%;
+}
+.gameHeadline {
+  font-size: 5rem;
+  font-family: 'Teko', sans-serif;
+  text-align: center;
+  color: white;
+  font-size: 8rem;
+  display: block;
+  height: auto;
+  line-height: 800px;
+  font-weight: bold;
+  text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+}
+.index--3--flex--container {
+  display: flex;
+  height: 600px;
+  background-color: white;
+}
+.index--flex--content {
+  flex: 1;
+  padding: 10%;
+}
+.index--icon {
+  position: relative;
+  height: 10rem;
+  top: -100px;
+}
+.sub-headline {
+  font-size: 2.5rem;
+  font-family: 'Teko', sans-serif;
+  text-align: left;
+  color: white;
+  line-height: 3rem;
+  color: #111111;
+  position: relative;
+  top: -50px;
+  text-shadow: 0px 0px 0px black;
+}
+.normal-text {
+  font-size: 1.3rem;
+  font-family: 'Roboto', cursive;
+  text-align: center;
+  color: white;
+  color: #111111;
+  position: relative;
+  top: -40px;
+  text-shadow: 0px 0px 0px black;
+}
+.index--flex--content:hover .index--icon {
+  height: 11rem;
+  -webkit-filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.5));
+  transition: 500ms ease-in-out;
+}
+.index--flex--content:hover .sub-headline {
+  text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+  color: white;
+  transition: 500ms ease-in-out;
+}
+.index--flex--content:hover .normal-text {
+  text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+  color: white;
+  transition: 500ms ease-in-out;
+}
+.index--flex--content:hover {
+  background-color: red;
+  transition: 500ms ease-in-out;
+}
+.index--flex--container {
+  height: 800px;
+  display: flex;
+}
+.flex--image--container {
+  background-color: green;
+  flex: 2;
+}
+.flex--text--container {
+  background-color: grey;
+  flex: 3;
+}
+.image--right {
+  flex-direction: row-reverse;
+}
+.footer {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  height: 200px;
+  background-color: #111111;
+}
+.footer--content {
+  list-style-type: none;
+  width: 80%;
+  margin: auto;
+  overflow: hidden;
+  padding: 0;
+}
+.footer--content ul {
+  overflow: hidden;
+}
+.footer--content li {
+  display: inline-block;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 5%;
+  overflow: hidden;
+}
+.footer--content a {
+  font-family: 'Teko', sans-serif;
+  color: white;
+  font-size: 40px;
+  text-decoration: none;
+}
+.registration--container {
+  width: 100%;
+  height: calc(100vh - 90px);
+  background-color: lightblue;
+  overflow: hidden;
+}
+.registration--formular--container {
+  position: relative;
+  height: 85%;
+  width: 40%;
+  background-color: white;
+  margin: auto;
+  top: 10%;
+  box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.3);
+}
+.formular--headline {
+  font-size: 5rem;
+  font-family: 'Teko', sans-serif;
+  text-align: center;
+  color: white;
+  color: red;
+  font-size: 6rem;
+}
+.form--row {
+  width: 60%;
+  margin: auto;
+  margin-top: 20px;
+  text-align: left;
+}
+label {
+  font-size: 2.5rem;
+  font-family: 'Teko', sans-serif;
+  color: #111111;
+  text-align: left;
+  position: relative;
+  top: 5px;
+}
+.form--row input {
+  width: 100%;
+  height: 30px;
+  top: -10px;
+  font-family: 'Teko', sans-serif;
+  font-size: 1.5rem;
+  color: grey;
+  border-radius: 3px;
+  padding-left: 5px;
+}
+.submit--btn {
+  height: 80px;
+  width: 200px;
+  margin: 30px;
+  font-size: 2rem;
+  font-family: 'Teko', sans-serif;
+  line-height: 2rem;
+  color: #111111;
+  border-color: transparent;
+  background-color: red;
+  color: white;
+  box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+}
+.play--now--container {
+  width: 100%;
+  height: calc(100vh - 90px);
+  background-color: lightblue;
+  overflow: hidden;
+}
+.play--now--formular--container {
+  position: relative;
+  height: 60%;
+  width: 40%;
+  background-color: white;
+  margin: auto;
+  top: 10%;
+  box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.3);
+}
+.no--account {
+  font-family: 'Teko', sans-serif;
+  font-size: 1.3rem;
+  color: #111;
 }

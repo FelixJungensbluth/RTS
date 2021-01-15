@@ -42,58 +42,54 @@
 
                     </ul>
                     <a href="playnow.php" class="play--now--button">Jetzt spielen</a>
-                    <a href="register.php"class="register--button">Registrieren</a>
             </nav>
         </div>
     </header>
-    <div class="index--banner--container">
-        <div class="gameHeadlineContainer">
-        <span class="gameHeadline">RTSGAME</span>
+        <div class="registration--container">
+            <div class="registration--formular--container">
+                <div class="registration--formular--headline">
+                    <span class="formular--headline">Registrieren</span>
+                </div>
+               
+                <form class="form">
+                    
+                    <div class="form--row">
+                    
+                        <label>Benutzername</label>
+                            
+                                <input tabindex="1" type="text" class="form-control" placeholder="Benutzername">
+                    
+                    </div>
+                   
+                    <div class="form--row">
+                    
+                        <label>Email</label>
+                            
+                                <input tabindex="2" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control" placeholder="Email" >
+                   
+                    </div>
+    
+                     
+                    <div class="form--row">
+                    
+                        <label>Passwort</label>
+                            
+                                <input tabindex="3" type="password" class="form-control" placeholder="Passwort" >
+                    
+                    </div>
+
+                    <div class="form--row">
+                    
+                        <label>Passwort bestätigen</label>
+                            
+                                <input tabindex="4" type="password" class="form-control" placeholder="Passwort" >
+                    
+                    </div>
+
+                            <button type="submit" class="btn submit--btn">Eingaben bestätigen</button>
+                </form> 
+            </div>
         </div>
-    </div>
-    <div class="index--3--flex--container">
-        <div class="index--flex--content">
-            <img src="resources/juwel.png" class="index--icon icon1"></img><br>
-            <span class="sub-headline">Besetze<br>Rohstoffvorkommen</span>
-            <span class="normal-text">Lorem ipsum dolor sit amet.<br>Tanem sunt elorem generes.</span>
-
-        </div>
-        <div class="index--flex--content">
-            <img src="resources/globus.png" class="index--icon icon1"></img><br>
-            <span class="sub-headline">Spiele Online<br>gegen deine Freunde</span>
-            <span class="normal-text">Lorem ipsum dolor sit amet.<br>Tanem sunt elorem generes.</span>
-
-        </div>
-        <div class="index--flex--content">
-            <img src="resources/gewinner.png" class="index--icon icon1"></img><br>
-            <span class="sub-headline">Führe deine<br>Armee zum Sieg</span><br>
-            <span class="normal-text">Lorem ipsum dolor sit amet.<br>Tanem sunt elorem generes.</span>
-
-        </div>
-    </div>
-    <div class="index--flex--container image--left">
-        <div class="flex--image--container"></div>
-        <div class="flex--text--container"></div>
-    </div>
-    <div class="index--flex--container image--right">
-        <div class="flex--image--container"></div>
-        <div class="flex--text--container"></div>
-    </div>
-    <div class="index--flex--container image--left">
-        <div class="flex--image--container"></div>
-        <div class="flex--text--container"></div>
-    </div>
-    <div class="footer">
-
-        <ul class="footer--content">
-            <li><a target="_blank" href="https://www.instagram.com/">INSTAGRAM</a></li>
-            <li><a target="_blank" href="https://de-de.facebook.com/">FACEBOOK</a></li>
-            <li><a target="_blank"  href="https://twitter.com/?lang=de">TWITTER</a></li>
-            <li><a target="_blank" href="https://www.youtube.com/">YOUTUBE</a></li>
-            <li><a target="_blank" href="https://dribbble.com/julesforrest">IMPRESSUM</a></li>
-            
-
-        </ul>
-    </div>
+    
 </body>
 </html>
