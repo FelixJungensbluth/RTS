@@ -12,17 +12,28 @@
 
  
     <header>
+    <div class="profile--container">
+            <div class="profile--overlay--container">
+                <div class="profile--overlay--close">
+                    <div class="close--line1"></div>
+                    <div class="close--line2"></div>
+                </div>
+            </div>
+            <div class="profile--overlay--background"></div>
+        </div>
+        
+
         <div class= nav--container>
-        <nav>
-            <a href="index.php"><span class="temp--logo">RTS<span class="logocolor">Game</span></span></a>
+            <nav>
+                <a href="index.php"><span class="temp--logo">RTS<span class="logocolor">Game</span></span></a>
                     <ul class="nav--links">
                         <li class="drop--list--item">
                             <div class="gameinfo--dropdown--container"><button class="nav--buttons dropDownButton" href="#">Spielinfo</button>
                                 <div class="gameinfo--dropdown--content">
                                     <ul class="dropdown">
-                                       <li> <a class="dropdown--content">Link 1</a><br></li><br>
-                                       <li> <a class="dropdown--content">Link 2</a><br></li><br>
-                                       <li> <a class="dropdown--content">Link 3</a><br></li><br>
+                                       <li> <a class="dropdown--content btn">Link 1</a><br></li><br>
+                                       <li> <a class="dropdown--content btn">Link 2</a><br></li><br>
+                                       <li> <a class="dropdown--content btn">Link 3</a><br></li><br>
                                     </ul>
                                 </div>
                             </div>
@@ -32,9 +43,9 @@
                             <div class="gameinfo--dropdown--container"><button class="nav--buttons dropDownButton" href="#">Neuigkeiten</button>
                                 <div class="gameinfo--dropdown--content">
                                     <ul class="dropdown">
-                                       <li> <a class="dropdown--content">Link 1</a><br></li><br>
-                                       <li> <a class="dropdown--content">Link 2</a><br></li><br>
-                                       <li> <a class="dropdown--content">Link 3</a><br></li><br>
+                                       <li> <a class="dropdown--content btn">Link 1</a><br></li><br>
+                                       <li> <a class="dropdown--content btn">Link 2</a><br></li><br>
+                                       <li> <a class="dropdown--content btn">Link 3</a><br></li><br>
                                     </ul>
                                 </div>
                             </div>
@@ -43,9 +54,9 @@
 
                     </ul>
                     <div class="account--management--container">
-                        <div class="profile--button--container"><a href="playnow.php" class="profile--button"><img src="resources/profile.png" class="profile--icon"></img><span class="profile--button--text">Profil</span></a></div>
-                        <div class="play--now--button--container"><a href="playnow.php" class="play--now--button">Jetzt spielen</a></div>
-                        <div class="register--button--container"><a href="register.php"class="register--button">Registrieren</a></div>
+                        <div class="profile--button--container"><div  class="profile--button btn"><img src="resources/profile.png" class="profile--icon"></img><span class="profile--button--text">Profil</span></div></div>
+                        <div class="play--now--button--container"><a href="playnow.php" class="play--now--button btn">Jetzt spielen</a></div>
+                        <div class="register--button--container"><a href="register.php"class="register--button btn">Registrieren</a></div>
                     </div>
                     <div class="burger">
                         <div class="line1"></div>
@@ -55,6 +66,7 @@
                     
             </nav>
             <script src="nav.js"></script>
+        </div>
         </div>
     </header>
         <div class="registration--container">
@@ -69,7 +81,7 @@
                     
                         <label>Benutzername</label>
                             
-                                <input tabindex="1" type="text" class="form-control" placeholder="Benutzername">
+                                <input name="username" tabindex="1" type="text" class="form-control" placeholder="Benutzername">
                     
                     </div>
                    
@@ -77,7 +89,7 @@
                     
                         <label>Email</label>
                             
-                                <input tabindex="2" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control" placeholder="Email" >
+                                <input name="email" tabindex="2" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control" placeholder="Email" >
                    
                     </div>
     
@@ -86,7 +98,7 @@
                     
                         <label>Passwort</label>
                             
-                                <input tabindex="3" type="password" class="form-control" placeholder="Passwort" >
+                                <input name="password" tabindex="3" type="password" class="form-control" placeholder="Passwort" >
                     
                     </div>
 
@@ -94,11 +106,11 @@
                     
                         <label>Passwort bestätigen</label>
                             
-                                <input tabindex="4" type="password" class="form-control" placeholder="Passwort" >
+                                <input name="password-confirm" tabindex="4" type="password" class="form-control" placeholder="Passwort" >
                     
                     </div>
 
-                            <button type="submit" class="btn submit--btn">Bestätigen</button>
+                            <button type="submit" class="btn submit--btn">Registrieren</button>
                 </form> 
             </div>
         </div>

@@ -153,7 +153,7 @@ header {
   list-style: none;
   line-height: normal;
   position: relative;
-  top: -8px;
+  top: -10px;
   visibility: hidden;
   opacity: 1;
   box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.2);
